@@ -14,7 +14,6 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextBuilder;
 import javafx.stage.Stage;
 
 public class Tekst extends Application
@@ -41,8 +40,7 @@ public class Tekst extends Application
   public void start(Stage primarnaScena) throws Exception
   {
 
-    Scene scena = SceneBuilder.create().width(650).height(400)
-        .root(kreirajScenu()).build();
+    Scene scena = new Scene( kreirajScenu());
     primarnaScena.setTitle("Ponavljanje");
     komande.layoutXProperty().bind(
         primarnaScena.widthProperty().subtract(primarnaScena.widthProperty())
@@ -83,13 +81,12 @@ public class Tekst extends Application
           int red = rand.nextInt(255);
           int green = rand.nextInt(255);
           int blue = rand.nextInt(255);
-          Text tekst = TextBuilder.create()
-              .text(porukaVrednost.getText())
-              .x(x)
-              .y(y)
-              .rotate(rand.nextInt(360))
-              .fill(Color.rgb(red, green, blue, .99))
-              .build();
+          Text tekst = new Text();
+          tekst.setText(porukaVrednost.getText());
+          tekst.setX(x);
+          tekst.setY(y);
+          tekst.setRotate(rand.nextInt(360));
+          tekst.setFill(Color.rgb(red, green, blue, .99));
           poMeniSePise.getChildren().add(tekst);
         }
       }
@@ -100,7 +97,7 @@ public class Tekst extends Application
 
   private Parent kreirajScenu()
   {
-    Pane rez = PaneBuilder.create().build();
+    Pane rez = new Pane();
     komande = kreirajKomande();
     poMeniSePise = kreirajPoMeniSePise();
     rez.getChildren().addAll(komande, poMeniSePise);
@@ -112,8 +109,11 @@ public class Tekst extends Application
     String kaskadniStil = "-fx-border-color: blue;\n"
         + "-fx-border-insets: 2;\n" + "-fx-border-width: 2;\n"
         + "-fx-border-style: dashed;\n";
-    FlowPane panel = FlowPaneBuilder.create().alignment(Pos.CENTER).vgap(10)
-        .hgap(20).style(kaskadniStil).build();
+    FlowPane panel = new FlowPane();
+    panel.setAlignment(Pos.CENTER);
+    panel.setVgap(10);
+    panel.setHgap(20);
+    panel.setStyle(kaskadniStil);
     porukaOpis = kreirajPorukaOpis();
     porukaVrednost = kreirajPorukaVrednost();
     ponavljanjeOpis = kreirajPonavljanjeOpis();
@@ -127,41 +127,49 @@ public class Tekst extends Application
 
   private Label kreirajPorukaOpis()
   {
-    Label oznaka = LabelBuilder.create().text("Unesi poruku: ").build();
+    Label oznaka = new Label();
+    oznaka.setText("Unesi poruku: ");
     return oznaka;
   }
 
   private TextField kreirajPorukaVrednost()
   {
-    TextField polje = TextFieldBuilder.create().prefWidth(160)
-        .text("Java FX 2.0").focusTraversable(false).build();
+    TextField polje = new TextField();
+    polje.setPrefWidth(160);
+    polje.setText("Java FX 2.0");
+    polje.setFocusTraversable(false);
     return polje;
   }
 
   private Label kreirajPonavljanjeOpis()
   {
-    Label oznaka = LabelBuilder.create().text("Broj poruka: ").build();
+    Label oznaka = new Label();
+    oznaka.setText("Broj poruka: ");
     return oznaka;
   }
 
   private TextField kreirajPonavljanjeVrednost()
   {
-    TextField polje = TextFieldBuilder.create().prefWidth(60).text("5")
-        .focusTraversable(false).build();
+    TextField polje = new TextField();
+    polje.setPrefWidth(60);
+    polje.setText("5");
+    polje.setFocusTraversable(false);
     return polje;
   }
 
   private CheckBox kreirajObrisiPrePrikaza()
   {
-    CheckBox poljeZaPotvrdu = CheckBoxBuilder.create()
-        .text("Obriöi pre prikaza").selected(true).focusTraversable(false)
-        .build();
+    CheckBox poljeZaPotvrdu = new CheckBox();
+    poljeZaPotvrdu.setText("Obri≈°i pre prikaza");
+    poljeZaPotvrdu.setSelected(true);
+    poljeZaPotvrdu.setFocusTraversable(false);
     return poljeZaPotvrdu;
   }
 
   private Button kreirajDugmeIspisi()
   {
-    Button dugme = ButtonBuilder.create().text("Ispisi").build();
+    Button dugme = new Button();
+    dugme.setText("Ispisi");
     return dugme;
   }
 
@@ -170,7 +178,8 @@ public class Tekst extends Application
     String kaskadniStil = "-fx-border-color: red;\n"
         + "-fx-border-insets: 2;\n" + "-fx-border-width: 2;\n"
         + "-fx-border-style: solid;\n";
-    Pane panel = PaneBuilder.create().style(kaskadniStil).build();
+    Pane panel = new Pane();
+    panel.setStyle(kaskadniStil);
     return panel;
   }
 
